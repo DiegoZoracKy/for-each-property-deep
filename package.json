@@ -1,0 +1,40 @@
+{
+  "name": "for-each-prop",
+  "version": "0.0.1",
+  "description": "Executes a callback for each property found on a object, enumerable or inherited, excluding built-in properties from Object / Function prototypes",
+  "main": "lib/for-each-property.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha ./test"
+  },
+  "keywords": [
+    "for",
+    "each",
+    "prop",
+    "property",
+    "object",
+    "function",
+    "enumerable",
+    "non-enumerable",
+    "inherited",
+    "prototype",
+    "proto",
+    "class",
+    "static"
+  ],
+  "author": {
+    "name": "Diego ZoracKy",
+    "email": "diego.zoracky@gmail.com",
+    "url": "https://github.com/DiegoZoracKy/"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "get-prototype-chain": "^1.0.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.4.2"
+  }
+}
