@@ -6,9 +6,12 @@ const forEachProp = require('../');
 
 const {
 	forEachOwnEnumerableProperty,
+	forEachOwnNonenumerableProperty,
 	forEachOwnProperty,
 	forEachEnumerableProperty,
-	forEachProperty
+	forEachNonenumerableProperty,
+	forEachProperty,
+	forEachPropDeep
 } = forEachProp;
 
 const testDataSet = require('./test.data.js');
@@ -19,78 +22,92 @@ const testDataSet = require('./test.data.js');
 
 testDataSet.forEach(testData => {
 	describe(testData.name, function() {
-		describe('forEachOwnEnumerableProperty', function() {
+		describe(`forEachOwnEnumerableProperty`, function() {
 			testMethod(forEachOwnEnumerableProperty, testData.ref, testData.forEachOwnEnumerableProperty);
 		});
 
-		describe('forEachOwnProperty', function() {
+		describe(`forEachOwnNonenumerableProperty`, function() {
+			testMethod(forEachOwnNonenumerableProperty, testData.ref, testData.forEachOwnNonenumerableProperty);
+		});
+
+		describe(`forEachOwnProperty`, function() {
 			testMethod(forEachOwnProperty, testData.ref, testData.forEachOwnProperty);
 		});
 
-		describe('forEachEnumerableProperty', function() {
+		describe(`forEachEnumerableProperty`, function() {
 			testMethod(forEachEnumerableProperty, testData.ref, testData.forEachEnumerableProperty);
 		});
 
-		describe('forEachProperty', function() {
+		describe(`forEachNonenumerableProperty`, function() {
+			testMethod(forEachNonenumerableProperty, testData.ref, testData.forEachNonenumerableProperty);
+		});
+
+		describe(`forEachProperty`, function() {
 			testMethod(forEachProperty, testData.ref, testData.forEachProperty);
 		});
 
-		describe('forEachProp :: forEachOwnEnumerableProperty :: nonEnumerable: false, prototypeChain: false', function() {
-			testForEachProp(forEachOwnEnumerableProperty, testData.ref, testData.forEachOwnEnumerableProperty, { nonEnumerable: false, prototypeChain: false });
+		describe(`forEachProp :: forEachOwnEnumerableProperty :: enumerability: 'enumerable', inherited: false`, function() {
+			testMethod(forEachProp, testData.ref, testData.forEachOwnEnumerableProperty, { enumerability: 'enumerable', inherited: false });
 		});
 
-		describe('forEachProp :: forEachOwnProperty :: nonEnumerable: true, prototypeChain: false', function() {
-			testForEachProp(forEachOwnProperty, testData.ref, testData.forEachOwnProperty, { nonEnumerable: true, prototypeChain: false });
+		describe(`forEachProp :: forEachOwnNonenumerableProperty :: enumerability: 'nonenumerable', inherited: false`, function() {
+			testMethod(forEachProp, testData.ref, testData.forEachOwnNonenumerableProperty, { enumerability: 'nonenumerable', inherited: false });
 		});
 
-		describe('forEachProp :: forEachEnumerableProperty :: nonEnumerable: false, prototypeChain: true', function() {
-			testForEachProp(forEachEnumerableProperty, testData.ref, testData.forEachEnumerableProperty, { nonEnumerable: false, prototypeChain: true });
+		describe(`forEachProp :: forEachOwnProperty :: enumerability: 'all', inherited: false`, function() {
+			testMethod(forEachProp, testData.ref, testData.forEachOwnProperty, { enumerability: 'all', inherited: false });
 		});
 
-		describe('forEachProp :: forEachProperty :: nonEnumerable: true, prototypeChain: true', function() {
-			testForEachProp(forEachProperty, testData.ref, testData.forEachProperty, { nonEnumerable: true, prototypeChain: true });
+		describe(`forEachProp :: forEachEnumerableProperty :: enumerability: 'enumerable', inherited: true`, function() {
+			testMethod(forEachProp, testData.ref, testData.forEachEnumerableProperty, { enumerability: 'enumerable', inherited: true });
+		});
+
+		describe(`forEachProp :: forEachNonenumerableProperty :: enumerability: 'nonenumerable', inherited: true`, function() {
+			testMethod(forEachProp, testData.ref, testData.forEachNonenumerableProperty, { enumerability: 'nonenumerable', inherited: true });
+		});
+
+		describe(`forEachProp :: forEachProperty :: enumerability: 'all', inherited: true`, function() {
+			testMethod(forEachProp, testData.ref, testData.forEachProperty, { enumerability: 'all', inherited: true });
+		});
+
+		describe(`forEachPropDeep :: forEachOwnEnumerableProperty :: enumerability: 'enumerable', inherited: false`, function() {
+			testMethod(forEachPropDeep, testData.ref, testData.forEachPropDeep.forEachOwnEnumerableProperty, { enumerability: 'enumerable', inherited: false });
+		});
+
+		describe(`forEachPropDeep :: forEachOwnNonenumerableProperty :: enumerability: 'nonenumerable', inherited: false`, function() {
+			testMethod(forEachPropDeep, testData.ref, testData.forEachPropDeep.forEachOwnNonenumerableProperty, { enumerability: 'nonenumerable', inherited: false });
+		});
+
+		describe(`forEachPropDeep :: forEachOwnProperty :: enumerability: 'all', inherited: false`, function() {
+			testMethod(forEachPropDeep, testData.ref, testData.forEachPropDeep.forEachOwnProperty, { enumerability: 'all', inherited: false });
+		});
+
+		describe(`forEachPropDeep :: forEachEnumerableProperty :: enumerability: 'enumerable', inherited: true`, function() {
+			testMethod(forEachPropDeep, testData.ref, testData.forEachPropDeep.forEachEnumerableProperty, { enumerability: 'enumerable', inherited: true });
+		});
+
+		describe(`forEachPropDeep :: forEachNonenumerableProperty :: enumerability: 'nonenumerable', inherited: true`, function() {
+			testMethod(forEachPropDeep, testData.ref, testData.forEachPropDeep.forEachNonenumerableProperty, { enumerability: 'nonenumerable', inherited: true });
+		});
+
+		describe(`forEachPropDeep :: forEachProperty :: enumerability: 'all', inherited: true`, function() {
+			testMethod(forEachPropDeep, testData.ref, testData.forEachPropDeep.forEachProperty, { enumerability: 'all', inherited: true });
 		});
 	});
 });
 
-function testMethod(methodToTest, ref, propsExpected) {
+function testMethod(methodToTest, ref, propsExpected, options) {
 	const propsFound = [];
 
-	it('must find the same number of props expected', function() {
+	it(`must find the same number of props expected`, function() {
 		methodToTest(ref, (value, key, o) => {
-			propsFound.push(key);
-		});
-
-		assert.equal(propsFound.length, propsExpected.length);
-	});
-
-	it('must find every prop expected', function() {
-		assert(propsFound.every(prop => propsExpected.includes(prop)));
-	});
-}
-
-function testForEachProp(methodToTest, ref, propsExpected, options) {
-	const propsFound = [];
-
-	it('must find the same number of props expected', function() {
-		forEachProp(ref, (value, key, o) => {
 			propsFound.push(key);
 		}, options);
 
 		assert.equal(propsFound.length, propsExpected.length);
 	});
 
-	it('must find every prop expected', function() {
+	it(`must find every prop expected`, function() {
 		assert(propsFound.every(prop => propsExpected.includes(prop)));
 	});
 }
-
-
-// console.log('=============== nonEnumerable: true, prototypeChain: true ================');
-// forEachProp(functionWithProperties, (value, key, o) => console.log(key, value), { nonEnumerable: true, prototypeChain: true });
-// console.log('=============== nonEnumerable: true, prototypeChain: false ================');
-// forEachProp(functionWithProperties, (value, key, o) => console.log(key, value), { nonEnumerable: true, prototypeChain: false });
-// console.log('=============== nonEnumerable: false, prototypeChain: false ================');
-// forEachProp(functionWithProperties, (value, key, o) => console.log(key, value), { nonEnumerable: false, prototypeChain: false });
-// console.log('=============== nonEnumerable: false, prototypeChain: true ================');
-// forEachProp(functionWithProperties, (value, key, o) => console.log(key, value), { nonEnumerable: false, prototypeChain: true });
