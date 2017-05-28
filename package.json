@@ -1,6 +1,6 @@
 {
   "name": "for-each-property-deep",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Executes a callback for each property found on a object, recursively on nested properties, with options regarding enumerability (enumerable or non-enumerable) and ownership (inherited or only own properties). It excludes built-in properties from Object and Function prototypes by default, and this behaviour can also be configured via options.",
   "main": "lib/for-each-property-deep.js",
   "directories": {
@@ -35,6 +35,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "for-each-property": "0.0.4",
     "get-prototype-chain": "^1.0.1"
   },
   "devDependencies": {
