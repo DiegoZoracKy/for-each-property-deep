@@ -192,104 +192,164 @@ objectCreatedWithParentProto.enumerableProp = 'enumerablePropVALUE';
 module.exports = [{
 	name: 'functionWithProperties',
 	ref: functionWithProperties,
-	forEachOwnEnumerableProperty: ['functionWithPropertiesEnumerablePropEnumerable'],
-	forEachOwnNonenumerableProperty: ['functionWithPropertiesEnumerablePropNonEnumerable'],
-	forEachOwnProperty: ['functionWithPropertiesEnumerablePropEnumerable', 'functionWithPropertiesEnumerablePropNonEnumerable'],
-	forEachEnumerableProperty: ['functionWithPropertiesEnumerablePropEnumerable'],
-	forEachNonenumerableProperty: ['functionWithPropertiesEnumerablePropNonEnumerable'],
-	forEachProperty: ['functionWithPropertiesEnumerablePropEnumerable', 'functionWithPropertiesEnumerablePropNonEnumerable'],
-	forEachPropDeep: {
-		forEachOwnEnumerableProperty: ['functionWithPropertiesEnumerablePropEnumerable'],
-		forEachOwnNonenumerableProperty: ['functionWithPropertiesEnumerablePropNonEnumerable'],
-		forEachOwnProperty: ['functionWithPropertiesEnumerablePropEnumerable', 'functionWithPropertiesEnumerablePropNonEnumerable'],
-		forEachEnumerableProperty: ['functionWithPropertiesEnumerablePropEnumerable'],
-		forEachNonenumerableProperty: ['functionWithPropertiesEnumerablePropNonEnumerable'],
-		forEachProperty: ['functionWithPropertiesEnumerablePropEnumerable', 'functionWithPropertiesEnumerablePropNonEnumerable'],
+	forEachOwnEnumerableProperty: {
+		keys: ['functionWithPropertiesEnumerablePropEnumerable'],
+		paths: ['functionWithPropertiesEnumerablePropEnumerable'],
+	},
+	forEachOwnNonenumerableProperty: {
+		keys: ['functionWithPropertiesEnumerablePropNonEnumerable'],
+		paths: ['functionWithPropertiesEnumerablePropNonEnumerable'],
+	},
+	forEachOwnEnumerableAndNonenumerableProperty: {
+		keys: ['functionWithPropertiesEnumerablePropEnumerable','functionWithPropertiesEnumerablePropNonEnumerable'],
+		paths: ['functionWithPropertiesEnumerablePropEnumerable', 'functionWithPropertiesEnumerablePropNonEnumerable' ],
+	},
+	forEachEnumerableProperty: {
+		keys: ['functionWithPropertiesEnumerablePropEnumerable'],
+		paths: ['functionWithPropertiesEnumerablePropEnumerable'],
+	},
+	forEachNonenumerableProperty: {
+		keys: ['functionWithPropertiesEnumerablePropNonEnumerable'],
+		paths: ['functionWithPropertiesEnumerablePropNonEnumerable'],
+	},
+	forEachEnumerableAndNonenumerableProperty: {
+		keys: ['functionWithPropertiesEnumerablePropEnumerable','functionWithPropertiesEnumerablePropNonEnumerable'],
+		paths: ['functionWithPropertiesEnumerablePropEnumerable', 'functionWithPropertiesEnumerablePropNonEnumerable'],
 	}
 }, {
 	name: 'instanceFromFunctionWithProperties',
 	ref: instanceFromFunctionWithProperties,
-	forEachOwnEnumerableProperty: ['propEnumerable'],
-	forEachOwnNonenumerableProperty: ['propNonEnumerable'],
-	forEachOwnProperty: ['propEnumerable', 'propNonEnumerable'],
-	forEachEnumerableProperty: ['propEnumerable', 'protoEnumerableProp'],
-	forEachNonenumerableProperty: ['propNonEnumerable', 'protoNonEnumerableProp'],
-	forEachProperty: ['propEnumerable', 'propNonEnumerable', 'protoEnumerableProp', 'protoNonEnumerableProp'],
-	forEachPropDeep: {
-		forEachOwnEnumerableProperty: ['propEnumerable'],
-		forEachOwnNonenumerableProperty: ['propNonEnumerable'],
-		forEachOwnProperty: ['propEnumerable', 'propNonEnumerable'],
-		forEachEnumerableProperty: ['propEnumerable', 'protoEnumerableProp'],
-		forEachNonenumerableProperty: ['propNonEnumerable', 'protoNonEnumerableProp'],
-		forEachProperty: ['propEnumerable', 'propNonEnumerable', 'protoEnumerableProp', 'protoNonEnumerableProp'],
-	}
+	forEachOwnEnumerableProperty: {
+		keys: ['propEnumerable'],
+		paths: ['propEnumerable'],
+	},
+	forEachOwnNonenumerableProperty: {
+		keys: ['propNonEnumerable'],
+		paths: ['propNonEnumerable'],
+	},
+	forEachOwnEnumerableAndNonenumerableProperty: {
+		keys: ['propEnumerable','propNonEnumerable'],
+		paths: ['propEnumerable', 'propNonEnumerable'],
+	},
+	forEachEnumerableProperty: {
+		keys: ['propEnumerable','protoEnumerableProp'],
+		paths: ['propEnumerable', 'protoEnumerableProp'],
+	},
+	forEachNonenumerableProperty: {
+		keys: ['propNonEnumerable','protoNonEnumerableProp'],
+		paths: ['propNonEnumerable', 'protoNonEnumerableProp'],
+	},
+	forEachEnumerableAndNonenumerableProperty: {
+		keys: ['propEnumerable','propNonEnumerable','protoEnumerableProp','protoNonEnumerableProp'],
+		paths: ['propEnumerable', 'propNonEnumerable', 'protoEnumerableProp', 'protoNonEnumerableProp'],
+	},
 }, {
 	name: 'objectLiteral',
 	ref: objectLiteral,
-	forEachOwnEnumerableProperty: ['a', 'fn', 'z'],
-	forEachOwnNonenumerableProperty: [],
-	forEachOwnProperty: ['a', 'fn', 'z'],
-	forEachEnumerableProperty: ['a', 'fn', 'z'],
-	forEachNonenumerableProperty: [],
-	forEachProperty: ['a', 'fn', 'z'],
-	forEachPropDeep:{
-		forEachOwnEnumerableProperty: ['c','b','d','g','f','a','innerFn','fn','k','zk','N','ep','de','kk','zz','k','innerFn','fnR','kz','z'],
-		forEachOwnNonenumerableProperty: [],
-		forEachOwnProperty: ['c','b','d','g','f','a','innerFn','fn','k','zk','N','ep','de','kk','zz','k','innerFn','fnR','kz','z'],
-		forEachEnumerableProperty: ['c','b','d','g','f','a','innerFn','fn','k','zk','N','ep','de','kk','zz','k','innerFn','fnR','kz','z'],
-		forEachNonenumerableProperty: [],
-		forEachProperty: ['c','b','d','g','f','a','innerFn','fn','k','zk','N','ep','de','kk','zz','k','innerFn','fnR','kz','z']
-	}
+	forEachOwnEnumerableProperty: {
+		keys: ['a','b','c','d','f','g','fn','innerFn','z','k','zk','N','de','ep','kz','zz','kk','k','fnR'],
+		paths: ["a","a.b","a.b.c","a.d","a.f","a.f.g","fn","fn.innerFn","z","z.k","z.zk","z.N","z.de","z.de.ep","z.kz","z.kz.zz","z.kz.zz.kk","z.kz.k","z.kz.fnR"],
+	},
+	forEachOwnNonenumerableProperty: {
+		keys: [],
+		paths: [],
+	},
+	forEachOwnEnumerableAndNonenumerableProperty: {
+		keys: ['a','b','c','d','f','g','fn','innerFn','z','k','zk','N','de','ep','kz','zz','kk','k','fnR'],
+		paths: ["a","a.b","a.b.c","a.d","a.f","a.f.g","fn","fn.innerFn","z","z.k","z.zk","z.N","z.de","z.de.ep","z.kz","z.kz.zz","z.kz.zz.kk","z.kz.k","z.kz.fnR"],
+	},
+	forEachEnumerableProperty: {
+		keys: ['a','b','c','d','f','g','fn','innerFn','z','k','zk','N','de','ep','kz','zz','kk','k','fnR'],
+		paths: ["a","a.b","a.b.c","a.d","a.f","a.f.g","fn","fn.innerFn","z","z.k","z.zk","z.N","z.de","z.de.ep","z.kz","z.kz.zz","z.kz.zz.kk","z.kz.k","z.kz.fnR"],
+	},
+	forEachNonenumerableProperty: {
+		keys: [],
+		paths: [],
+	},
+	forEachEnumerableAndNonenumerableProperty: {
+		keys: ['a','b','c','d','f','g','fn','innerFn','z','k','zk','N','de','ep','kz','zz','kk','k','fnR'],
+		paths: ["a","a.b","a.b.c","a.d","a.f","a.f.g","fn","fn.innerFn","z","z.k","z.zk","z.N","z.de","z.de.ep","z.kz","z.kz.zz","z.kz.zz.kk","z.kz.k","z.kz.fnR"]
+	},
 }, {
 	name: 'classRef',
 	ref: classRef,
-	forEachOwnEnumerableProperty: [],
-	forEachOwnNonenumerableProperty: ['classRefStatic'],
-	forEachOwnProperty: ['classRefStatic'],
-	forEachEnumerableProperty: [],
-	forEachNonenumerableProperty: ['classRefStatic', 'classRef2Static', 'classRef3Static'],
-	forEachProperty: ['classRefStatic', 'classRef2Static', 'classRef3Static'],
-	forEachPropDeep:{
-		forEachOwnEnumerableProperty: [],
-		forEachOwnNonenumerableProperty: ['classRefStatic'],
-		forEachOwnProperty: ['classRefStatic'],
-		forEachEnumerableProperty: [],
-		forEachNonenumerableProperty: ['classRefStatic', 'classRef2Static', 'classRef3Static'],
-		forEachProperty: ['classRefStatic','classRef2Static','classRef3Static']
-	}
+	forEachOwnEnumerableProperty: {
+		keys: [],
+		paths: [],
+	},
+	forEachOwnNonenumerableProperty: {
+		keys: ['classRefStatic'],
+		paths: ['classRefStatic'],
+	},
+	forEachOwnEnumerableAndNonenumerableProperty: {
+		keys: ['classRefStatic'],
+		paths: ['classRefStatic'],
+	},
+	forEachEnumerableProperty: {
+		keys: [],
+		paths: [],
+	},
+	forEachNonenumerableProperty: {
+		keys: ['classRefStatic','classRef2Static','classRef3Static'],
+		paths: ['classRefStatic','classRef2Static','classRef3Static'],
+	},
+	forEachEnumerableAndNonenumerableProperty: {
+		keys: ['classRefStatic','classRef2Static','classRef3Static'],
+		paths: ['classRefStatic','classRef2Static','classRef3Static']
+	},
 }, {
 
 	name: 'instanceFromClassRef',
 	ref: instanceFromClassRef,
-	forEachOwnEnumerableProperty: ['z', 'zz', 'superFn', 'instanceFn'],
-	forEachOwnNonenumerableProperty: ['instanceFnNonEnumerable'],
-	forEachOwnProperty: ['z', 'zz', 'superFn', 'instanceFn', 'instanceFnNonEnumerable'],
-	forEachEnumerableProperty: ['z', 'zz', 'superFn', 'instanceFn'],
-	forEachNonenumerableProperty: ['instanceFnNonEnumerable', 'fn', 'ffn', 'fffn', 'ffn'],
-	forEachProperty: ['z', 'zz', 'superFn', 'instanceFn', 'instanceFnNonEnumerable', 'fn', 'ffn', 'fffn', 'ffn'],
-	forEachPropDeep:{
-		forEachOwnEnumerableProperty: ['z','zz','fnWithProp','superInnerFn','superFn','instanceFn'],
-		forEachOwnNonenumerableProperty: ['instanceFnNonEnumerable'],
-		forEachOwnProperty: ['z','zz','fnWithProp','superInnerFn','superFn','instanceFn','instanceFnNonEnumerable'],
-		forEachEnumerableProperty: ['z','zz','fnWithProp','superInnerFn','superFn','instanceFn'],
-		forEachNonenumerableProperty: ['instanceFnNonEnumerable', 'fn', 'ffn', 'fffn', 'ffn'],
-		forEachProperty: ['z','zz','fnWithProp','superInnerFn','superFn','instanceFn','instanceFnNonEnumerable','fn','ffn','fffn','ffn']
-	}
+	forEachOwnEnumerableProperty: {
+		keys: ['z','zz','superFn','superInnerFn','fnWithProp','instanceFn'],
+		paths: ["z","zz","superFn","superFn.superInnerFn","superFn.superInnerFn.fnWithProp","instanceFn"]
+	},
+	forEachOwnNonenumerableProperty: {
+		keys: ['instanceFnNonEnumerable'],
+		paths: ["instanceFnNonEnumerable"]
+	},
+	forEachOwnEnumerableAndNonenumerableProperty: {
+		keys: ['z','zz','superFn','superInnerFn','fnWithProp','instanceFn','instanceFnNonEnumerable'],
+		paths: ["z","zz","superFn","superFn.superInnerFn","superFn.superInnerFn.fnWithProp","instanceFn","instanceFnNonEnumerable"]
+	},
+	forEachEnumerableProperty: {
+		keys: ['z','zz','superFn','superInnerFn','fnWithProp','instanceFn'],
+		paths: ["z","zz","superFn","superFn.superInnerFn","superFn.superInnerFn.fnWithProp","instanceFn"]
+	},
+	forEachNonenumerableProperty: {
+		keys: ['instanceFnNonEnumerable','fn','ffn','fffn','ffn'],
+		paths: ["instanceFnNonEnumerable","fn","ffn","fffn","ffn"]
+	},
+	forEachEnumerableAndNonenumerableProperty: {
+		keys: ['z','zz','superFn','superInnerFn','fnWithProp','instanceFn','instanceFnNonEnumerable','fn','ffn','fffn','ffn'],
+		paths: ["z","zz","superFn","superFn.superInnerFn","superFn.superInnerFn.fnWithProp","instanceFn","instanceFnNonEnumerable","fn","ffn","fffn","ffn"]
+	},
 }, {
 	name: 'objectCreatedWithParentProto',
 	ref: objectCreatedWithParentProto,
-	forEachOwnEnumerableProperty: ['ownEmurableProp', 'enumerableProp'],
-	forEachOwnNonenumerableProperty: ['ownNonEmurableProp'],
-	forEachOwnProperty: ['ownEmurableProp', 'enumerableProp', 'ownNonEmurableProp'],
-	forEachEnumerableProperty: ['ownEmurableProp', 'enumerableProp', 'ParentEnumerableProp'],
-	forEachNonenumerableProperty: ['ownNonEmurableProp', 'parentNonEnumerableProp'],
-	forEachProperty: ['ownNonEmurableProp', 'ownEmurableProp', 'enumerableProp', 'ParentEnumerableProp', 'parentNonEnumerableProp'],
-	forEachPropDeep:{
-		forEachOwnEnumerableProperty: ['ownEmurableProp','enumerableProp'],
-		forEachOwnNonenumerableProperty: ['ownNonEmurableProp'],
-		forEachOwnProperty: ['ownNonEmurableProp','ownEmurableProp','enumerableProp'],
-		forEachEnumerableProperty: ['ownEmurableProp','enumerableProp','ParentEnumerableProp'],
-		forEachNonenumerableProperty: ['ownNonEmurableProp', 'parentNonEnumerableProp'],
-		forEachProperty: ['ownNonEmurableProp','ownEmurableProp','enumerableProp','ParentEnumerableProp','parentNonEnumerableProp']
-	}
+	forEachOwnEnumerableProperty: {
+		keys: ['ownEmurableProp','enumerableProp'],
+		paths: ["ownEmurableProp","enumerableProp"],
+	},
+	forEachOwnNonenumerableProperty: {
+		keys: ['ownNonEmurableProp'],
+		paths: ["ownNonEmurableProp"],
+	},
+	forEachOwnEnumerableAndNonenumerableProperty: {
+		keys: ['ownNonEmurableProp','ownEmurableProp','enumerableProp'],
+		paths: ["ownNonEmurableProp","ownEmurableProp","enumerableProp"],
+	},
+	forEachEnumerableProperty: {
+		keys: ['ownEmurableProp','enumerableProp','ParentEnumerableProp'],
+		paths: ["ownEmurableProp","enumerableProp","ParentEnumerableProp"],
+	},
+	forEachNonenumerableProperty: {
+		keys: ['ownNonEmurableProp','parentNonEnumerableProp'],
+		paths: ["ownNonEmurableProp","parentNonEnumerableProp"],
+	},
+	forEachEnumerableAndNonenumerableProperty: {
+		keys: ['ownNonEmurableProp','ownEmurableProp','enumerableProp','ParentEnumerableProp','parentNonEnumerableProp'],
+		paths: ["ownNonEmurableProp","ownEmurableProp","enumerableProp","ParentEnumerableProp","parentNonEnumerableProp"]
+	},
 }];

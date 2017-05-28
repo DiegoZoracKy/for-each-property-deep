@@ -1,8 +1,8 @@
 {
-  "name": "for-each-prop",
+  "name": "for-each-property-deep",
   "version": "0.0.1",
-  "description": "Executes a callback for each property found on a object, enumerable or inherited, excluding built-in properties from Object / Function prototypes",
-  "main": "lib/for-each-property.js",
+  "description": "Executes a callback for each property found on a object, recursively on nested properties, with options regarding enumerability (enumerable or non-enumerable) and ownership (inherited or only own properties). It excludes built-in properties from Object and Function prototypes by default, and this behaviour can also be configured via options.",
+  "main": "lib/for-each-property-deep.js",
   "directories": {
     "test": "test"
   },
@@ -10,6 +10,8 @@
     "test": "mocha ./test"
   },
   "keywords": [
+    "recursive",
+    "deep",
     "for",
     "each",
     "prop",
@@ -18,9 +20,11 @@
     "function",
     "enumerable",
     "non-enumerable",
+    "nonenumerable",
     "inherited",
-    "prototype",
     "proto",
+    "prototype",
+    "prototype-chain",
     "class",
     "static"
   ],

@@ -1,19 +1,7 @@
 'use strict';
 
 const assert = require('assert');
-
-const forEachProp = require('../');
-
-const {
-	forEachOwnEnumerableProperty,
-	forEachOwnNonenumerableProperty,
-	forEachOwnProperty,
-	forEachEnumerableProperty,
-	forEachNonenumerableProperty,
-	forEachProperty,
-	forEachPropDeep
-} = forEachProp;
-
+const forEachPropertyDeep = require('../');
 const testDataSet = require('./test.data.js');
 
 ////////////////////////////
@@ -22,85 +10,69 @@ const testDataSet = require('./test.data.js');
 
 testDataSet.forEach(testData => {
 	describe(testData.name, function() {
-		describe(`forEachOwnEnumerableProperty`, function() {
-			testMethod(forEachOwnEnumerableProperty, testData.ref, testData.forEachOwnEnumerableProperty);
+
+		describe('keys / props', function() {
+
+			describe(`forEachPropertyDeep :: forEachOwnEnumerableProperty :: enumerability: 'enumerable', inherited: false`, function() {
+				testForEachPropertyDeepKeys(testData.ref, testData.forEachOwnEnumerableProperty.keys, { enumerability: 'enumerable', inherited: false });
+			});
+
+			describe(`forEachPropertyDeep :: forEachOwnNonenumerableProperty :: enumerability: 'nonenumerable', inherited: false`, function() {
+				testForEachPropertyDeepKeys(testData.ref, testData.forEachOwnNonenumerableProperty.keys, { enumerability: 'nonenumerable', inherited: false });
+			});
+
+			describe(`forEachPropertyDeep :: forEachOwnEnumerableAndNonenumerableProperty :: enumerability: 'all', inherited: false`, function() {
+				testForEachPropertyDeepKeys(testData.ref, testData.forEachOwnEnumerableAndNonenumerableProperty.keys, { enumerability: 'all', inherited: false });
+			});
+
+			describe(`forEachPropertyDeep :: forEachEnumerableProperty :: enumerability: 'enumerable', inherited: true`, function() {
+				testForEachPropertyDeepKeys(testData.ref, testData.forEachEnumerableProperty.keys, { enumerability: 'enumerable', inherited: true });
+			});
+
+			describe(`forEachPropertyDeep :: forEachNonenumerableProperty :: enumerability: 'nonenumerable', inherited: true`, function() {
+				testForEachPropertyDeepKeys(testData.ref, testData.forEachNonenumerableProperty.keys, { enumerability: 'nonenumerable', inherited: true });
+			});
+
+			describe(`forEachPropertyDeep :: forEachEnumerableAndNonenumerableProperty :: enumerability: 'all', inherited: true`, function() {
+				testForEachPropertyDeepKeys(testData.ref, testData.forEachEnumerableAndNonenumerableProperty.keys, { enumerability: 'all', inherited: true });
+			});
+
 		});
 
-		describe(`forEachOwnNonenumerableProperty`, function() {
-			testMethod(forEachOwnNonenumerableProperty, testData.ref, testData.forEachOwnNonenumerableProperty);
-		});
+		describe('paths', function() {
 
-		describe(`forEachOwnProperty`, function() {
-			testMethod(forEachOwnProperty, testData.ref, testData.forEachOwnProperty);
-		});
+			describe(`forEachPropertyDeep :: forEachOwnEnumerableProperty :: enumerability: 'enumerable', inherited: false`, function() {
+				testForEachPropertyDeepPaths(testData.ref, testData.forEachOwnEnumerableProperty.paths, { enumerability: 'enumerable', inherited: false });
+			});
 
-		describe(`forEachEnumerableProperty`, function() {
-			testMethod(forEachEnumerableProperty, testData.ref, testData.forEachEnumerableProperty);
-		});
+			describe(`forEachPropertyDeep :: forEachOwnNonenumerableProperty :: enumerability: 'nonenumerable', inherited: false`, function() {
+				testForEachPropertyDeepPaths(testData.ref, testData.forEachOwnNonenumerableProperty.paths, { enumerability: 'nonenumerable', inherited: false });
+			});
 
-		describe(`forEachNonenumerableProperty`, function() {
-			testMethod(forEachNonenumerableProperty, testData.ref, testData.forEachNonenumerableProperty);
-		});
+			describe(`forEachPropertyDeep :: forEachOwnEnumerableAndNonenumerableProperty :: enumerability: 'all', inherited: false`, function() {
+				testForEachPropertyDeepPaths(testData.ref, testData.forEachOwnEnumerableAndNonenumerableProperty.paths, { enumerability: 'all', inherited: false });
+			});
 
-		describe(`forEachProperty`, function() {
-			testMethod(forEachProperty, testData.ref, testData.forEachProperty);
-		});
+			describe(`forEachPropertyDeep :: forEachEnumerableProperty :: enumerability: 'enumerable', inherited: true`, function() {
+				testForEachPropertyDeepPaths(testData.ref, testData.forEachEnumerableProperty.paths, { enumerability: 'enumerable', inherited: true });
+			});
 
-		describe(`forEachProp :: forEachOwnEnumerableProperty :: enumerability: 'enumerable', inherited: false`, function() {
-			testMethod(forEachProp, testData.ref, testData.forEachOwnEnumerableProperty, { enumerability: 'enumerable', inherited: false });
-		});
+			describe(`forEachPropertyDeep :: forEachNonenumerableProperty :: enumerability: 'nonenumerable', inherited: true`, function() {
+				testForEachPropertyDeepPaths(testData.ref, testData.forEachNonenumerableProperty.paths, { enumerability: 'nonenumerable', inherited: true });
+			});
 
-		describe(`forEachProp :: forEachOwnNonenumerableProperty :: enumerability: 'nonenumerable', inherited: false`, function() {
-			testMethod(forEachProp, testData.ref, testData.forEachOwnNonenumerableProperty, { enumerability: 'nonenumerable', inherited: false });
-		});
-
-		describe(`forEachProp :: forEachOwnProperty :: enumerability: 'all', inherited: false`, function() {
-			testMethod(forEachProp, testData.ref, testData.forEachOwnProperty, { enumerability: 'all', inherited: false });
-		});
-
-		describe(`forEachProp :: forEachEnumerableProperty :: enumerability: 'enumerable', inherited: true`, function() {
-			testMethod(forEachProp, testData.ref, testData.forEachEnumerableProperty, { enumerability: 'enumerable', inherited: true });
-		});
-
-		describe(`forEachProp :: forEachNonenumerableProperty :: enumerability: 'nonenumerable', inherited: true`, function() {
-			testMethod(forEachProp, testData.ref, testData.forEachNonenumerableProperty, { enumerability: 'nonenumerable', inherited: true });
-		});
-
-		describe(`forEachProp :: forEachProperty :: enumerability: 'all', inherited: true`, function() {
-			testMethod(forEachProp, testData.ref, testData.forEachProperty, { enumerability: 'all', inherited: true });
-		});
-
-		describe(`forEachPropDeep :: forEachOwnEnumerableProperty :: enumerability: 'enumerable', inherited: false`, function() {
-			testMethod(forEachPropDeep, testData.ref, testData.forEachPropDeep.forEachOwnEnumerableProperty, { enumerability: 'enumerable', inherited: false });
-		});
-
-		describe(`forEachPropDeep :: forEachOwnNonenumerableProperty :: enumerability: 'nonenumerable', inherited: false`, function() {
-			testMethod(forEachPropDeep, testData.ref, testData.forEachPropDeep.forEachOwnNonenumerableProperty, { enumerability: 'nonenumerable', inherited: false });
-		});
-
-		describe(`forEachPropDeep :: forEachOwnProperty :: enumerability: 'all', inherited: false`, function() {
-			testMethod(forEachPropDeep, testData.ref, testData.forEachPropDeep.forEachOwnProperty, { enumerability: 'all', inherited: false });
-		});
-
-		describe(`forEachPropDeep :: forEachEnumerableProperty :: enumerability: 'enumerable', inherited: true`, function() {
-			testMethod(forEachPropDeep, testData.ref, testData.forEachPropDeep.forEachEnumerableProperty, { enumerability: 'enumerable', inherited: true });
-		});
-
-		describe(`forEachPropDeep :: forEachNonenumerableProperty :: enumerability: 'nonenumerable', inherited: true`, function() {
-			testMethod(forEachPropDeep, testData.ref, testData.forEachPropDeep.forEachNonenumerableProperty, { enumerability: 'nonenumerable', inherited: true });
-		});
-
-		describe(`forEachPropDeep :: forEachProperty :: enumerability: 'all', inherited: true`, function() {
-			testMethod(forEachPropDeep, testData.ref, testData.forEachPropDeep.forEachProperty, { enumerability: 'all', inherited: true });
+			describe(`forEachPropertyDeep :: forEachEnumerableAndNonenumerableProperty :: enumerability: 'all', inherited: true`, function() {
+				testForEachPropertyDeepPaths(testData.ref, testData.forEachEnumerableAndNonenumerableProperty.paths, { enumerability: 'all', inherited: true });
+			});
 		});
 	});
 });
 
-function testMethod(methodToTest, ref, propsExpected, options) {
+function testForEachPropertyDeepKeys(ref, propsExpected, options) {
 	const propsFound = [];
 
 	it(`must find the same number of props expected`, function() {
-		methodToTest(ref, (value, key, o) => {
+		forEachPropertyDeep(ref, (value, key) => {
 			propsFound.push(key);
 		}, options);
 
@@ -109,5 +81,21 @@ function testMethod(methodToTest, ref, propsExpected, options) {
 
 	it(`must find every prop expected`, function() {
 		assert(propsFound.every(prop => propsExpected.includes(prop)));
+	});
+}
+
+function testForEachPropertyDeepPaths(ref, pathsExpected, options) {
+	let pathsFound = [];
+
+	it(`must find the same number of paths expected`, function() {
+		forEachPropertyDeep(ref, (v, k, path) => {
+			pathsFound = pathsFound.concat(path.join('.'));
+		}, options);
+
+		assert.equal(pathsFound.length, pathsExpected.length);
+	});
+
+	it(`must find every path expected`, function() {
+		assert(pathsFound.every(prop => pathsExpected.includes(prop)));
 	});
 }
