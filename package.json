@@ -6,6 +6,10 @@
   "directories": {
     "test": "test"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DiegoZoracKy/for-each-property-deep.git"
+  },
   "scripts": {
     "test": "mocha ./test"
   },
